@@ -1,0 +1,155 @@
+[gd_scene load_steps=17 format=3 uid="uid://ccgumxnj7s8cj"]
+
+[ext_resource type="Texture2D" uid="uid://dqot203d8ujah" path="res://Enemy Sprites/pikachu.png" id="1_0cftm"]
+[ext_resource type="Script" path="res://enemy_1.gd" id="1_c2fae"]
+[ext_resource type="Texture2D" uid="uid://mlgmsuhgcg2q" path="res://Icons/FF7Cursor.webp" id="2_2peh4"]
+[ext_resource type="Texture2D" uid="uid://b82vwth0ds4ow" path="res://Icons/Icon_Class_Blue_Tome.webp" id="3_7wku1"]
+[ext_resource type="Texture2D" uid="uid://blrjqyam6h0pw" path="res://Icons/Icon_Class_Red_Breath.webp" id="4_t1byr"]
+[ext_resource type="Texture2D" uid="uid://xoa0cwqmgxo8" path="res://Icons/Icon_Class_Green_Dagger.webp" id="5_s4t65"]
+[ext_resource type="Texture2D" uid="uid://igvdc0f5euc4" path="res://Icons/Icon_Class_Colorless_Staff.webp" id="6_lv6l7"]
+[ext_resource type="Texture2D" uid="uid://bwioowi1avaf0" path="res://Icons/Status_Effect_Penalty.webp" id="8_peoym"]
+[ext_resource type="Texture2D" uid="uid://dtl80jdk37wxg" path="res://Icons/Status_Effect_Counterattacks_disrupted.webp" id="9_7unjo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpl6q"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bxavb"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="Animation" id="Animation_2gb31"]
+resource_name = "Hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(30, 1, 1, 1), Color(30, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0i534"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_depxi"]
+_data = {
+"Hurt": SubResource("Animation_2gb31"),
+"RESET": SubResource("Animation_0i534")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ajch"]
+bg_color = Color(0.964706, 0.643137, 0.0862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scvry"]
+bg_color = Color(0.929412, 0.254902, 0.101961, 1)
+
+[node name="Enemy_1" type="CharacterBody2D"]
+script = ExtResource("1_c2fae")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(110, 247)
+scale = Vector2(3.43748, 3.33831)
+texture = ExtResource("1_0cftm")
+flip_h = true
+
+[node name="Focus" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-12, 266)
+scale = Vector2(1.09375, 1.1875)
+texture = ExtResource("2_2peh4")
+
+[node name="HP" type="ProgressBar" parent="."]
+offset_left = 26.0
+offset_top = 91.0
+offset_right = 194.0
+offset_bottom = 125.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_jpl6q")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bxavb")
+max_value = 500.0
+value = 500.0
+
+[node name="Label" type="Label" parent="HP"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -7.0
+offset_right = 43.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HP:"
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_depxi")
+}
+
+[node name="Defensive Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(235, 108)
+scale = Vector2(1, 0.932432)
+texture = ExtResource("3_7wku1")
+
+[node name="Offensive  Icon" type="Sprite2D" parent="."]
+position = Vector2(236.5, 103.5)
+scale = Vector2(0.824324, 0.77027)
+texture = ExtResource("4_t1byr")
+
+[node name="Tricky Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(236, 108)
+scale = Vector2(0.851351, 0.783784)
+texture = ExtResource("5_s4t65")
+
+[node name="Supportive Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(234.5, 107.5)
+scale = Vector2(0.905405, 0.878378)
+texture = ExtResource("6_lv6l7")
+
+[node name="Stagger" type="ProgressBar" parent="."]
+offset_left = 156.0
+offset_top = 48.0
+offset_right = 195.0
+offset_bottom = 87.0
+theme_override_styles/background = SubResource("StyleBoxFlat_6ajch")
+theme_override_styles/fill = SubResource("StyleBoxFlat_scvry")
+max_value = 20.0
+value = 20.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Label" type="Label" parent="Stagger"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 29.0
+offset_bottom = 31.0
+text = "20
+"
+
+[node name="Debuffed Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(292, 105)
+scale = Vector2(1, 0.972727)
+texture = ExtResource("8_peoym")
+
+[node name="Staggered Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(291, 155)
+texture = ExtResource("9_7unjo")

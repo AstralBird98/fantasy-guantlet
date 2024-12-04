@@ -1,0 +1,1091 @@
+[gd_scene load_steps=34 format=3 uid="uid://dxarmeiqequjp"]
+
+[ext_resource type="Script" path="res://battle_1.gd" id="1_12ebv"]
+[ext_resource type="Texture2D" uid="uid://dypp3t0gjpnik" path="res://Background/Screenshot (1275).png" id="2_leewm"]
+[ext_resource type="PackedScene" uid="uid://dn6b573yjxruc" path="res://e_group_1.tscn" id="3_5q1wf"]
+[ext_resource type="PackedScene" uid="uid://rmdvquvp5v0b" path="res://player_party.tscn" id="4_5irjt"]
+[ext_resource type="Texture2D" uid="uid://biqj2pghtw0ic" path="res://Enemy Sprites/rayquaza.png" id="4_bjqci"]
+[ext_resource type="Script" path="res://attack.gd" id="5_oj6en"]
+[ext_resource type="Script" path="res://star_beam.gd" id="6_fnf6f"]
+[ext_resource type="Script" path="res://black_hole.gd" id="7_rv17d"]
+[ext_resource type="Script" path="res://shredder.gd" id="8_j5wi6"]
+[ext_resource type="Script" path="res://burst.gd" id="9_sgl5f"]
+[ext_resource type="Script" path="res://offensive.gd" id="10_16pdm"]
+[ext_resource type="Script" path="res://defensive.gd" id="11_kkmha"]
+[ext_resource type="Script" path="res://t_defensive.gd" id="12_xusdi"]
+[ext_resource type="Script" path="res://s_defensive.gd" id="13_vleex"]
+[ext_resource type="Script" path="res://stay.gd" id="14_pw38y"]
+[ext_resource type="Script" path="res://elixir.gd" id="15_dfs4p"]
+[ext_resource type="Texture2D" uid="uid://c3pdwrcsc5x3n" path="res://Background/Screenshot (1330).png" id="17_g00ox"]
+[ext_resource type="Texture2D" uid="uid://b82vwth0ds4ow" path="res://Icons/Icon_Class_Blue_Tome.webp" id="18_yk0df"]
+[ext_resource type="Texture2D" uid="uid://blrjqyam6h0pw" path="res://Icons/Icon_Class_Red_Breath.webp" id="19_0njym"]
+[ext_resource type="Texture2D" uid="uid://xoa0cwqmgxo8" path="res://Icons/Icon_Class_Green_Dagger.webp" id="20_da8i6"]
+[ext_resource type="Texture2D" uid="uid://igvdc0f5euc4" path="res://Icons/Icon_Class_Colorless_Staff.webp" id="21_xvuyr"]
+[ext_resource type="Texture2D" uid="uid://bwktj87701k7u" path="res://Icons/Status_Effect_Bonus.webp" id="22_d4x7i"]
+[ext_resource type="Texture2D" uid="uid://bwioowi1avaf0" path="res://Icons/Status_Effect_Penalty.webp" id="23_h0lqe"]
+[ext_resource type="Texture2D" uid="uid://dtl80jdk37wxg" path="res://Icons/Status_Effect_Counterattacks_disrupted.webp" id="24_81ye0"]
+[ext_resource type="Texture2D" uid="uid://w3qsoxrulst3" path="res://Icons/Status_Effect_Reduces_damage_when_initiating.webp" id="25_x5flm"]
+[ext_resource type="Script" path="res://p_attack_effect.gd" id="26_ooskh"]
+[ext_resource type="Script" path="res://e_attack_effect.gd" id="27_82c5a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hitta"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_aqufe"]
+font_size = 19
+font_color = Color(1, 0, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_71qrm"]
+line_spacing = 0.5
+font_size = 15
+font_color = Color(1, 0, 1, 1)
+
+[sub_resource type="Curve" id="Curve_eieqq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00377357), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_63huk"]
+_data = [Vector2(0.00381678, 1), 0.0, 0.0, 0, 0, Vector2(0.996183, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_nxxf5"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.0114504, 360), 0.0, 0.0, 0, 0, Vector2(0.980916, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Battle_3" type="Node2D"]
+script = ExtResource("1_12ebv")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -13.0
+offset_top = -43.0
+offset_right = 1369.0
+offset_bottom = 766.0
+texture = ExtResource("2_leewm")
+expand_mode = 1
+
+[node name="E_Group 1" parent="." instance=ExtResource("3_5q1wf")]
+position = Vector2(89, 92)
+
+[node name="Sprite2D" parent="E_Group 1/Enemy" index="0"]
+position = Vector2(175, 357.5)
+scale = Vector2(3.14062, 3.0125)
+texture = ExtResource("4_bjqci")
+
+[node name="HP" parent="E_Group 1/Enemy" index="2"]
+offset_left = 86.0
+offset_top = 196.0
+offset_right = 254.0
+offset_bottom = 230.0
+
+[node name="Defensive Icon" parent="E_Group 1/Enemy" index="4"]
+position = Vector2(296, 214)
+
+[node name="Offensive  Icon" parent="E_Group 1/Enemy" index="5"]
+visible = false
+position = Vector2(295, 213)
+
+[node name="Tricky Icon" parent="E_Group 1/Enemy" index="6"]
+position = Vector2(295, 217)
+
+[node name="Supportive Icon" parent="E_Group 1/Enemy" index="7"]
+visible = true
+position = Vector2(296, 216)
+
+[node name="Stagger" parent="E_Group 1/Enemy" index="8"]
+offset_left = 218.0
+offset_top = 150.0
+offset_right = 257.0
+offset_bottom = 189.0
+
+[node name="Debuffed Icon" parent="E_Group 1/Enemy" index="9"]
+position = Vector2(356, 215)
+
+[node name="Staggered Icon" parent="E_Group 1/Enemy" index="10"]
+position = Vector2(363, 272)
+
+[node name="Player_Party" parent="." instance=ExtResource("4_5irjt")]
+position = Vector2(763, 129)
+
+[node name="Sprite2D" parent="Player_Party/Player" index="0"]
+position = Vector2(168, 308)
+
+[node name="HP" parent="Player_Party/Player" index="2"]
+offset_left = 94.0
+offset_top = 151.0
+offset_right = 262.0
+offset_bottom = 185.0
+max_value = 600.0
+value = 600.0
+
+[node name="MP" parent="Player_Party/Player" index="3"]
+offset_left = 93.0
+offset_top = 190.0
+offset_right = 261.0
+offset_bottom = 217.0
+max_value = 150.0
+value = 150.0
+
+[node name="Special" parent="Player_Party/Player" index="4"]
+offset_left = -765.0
+offset_top = 485.0
+offset_right = 605.0
+offset_bottom = 512.0
+
+[node name="Defensive Icon" parent="Player_Party/Player" index="6"]
+position = Vector2(40, 172)
+scale = Vector2(0.918919, 0.902027)
+
+[node name="Offensive  Icon" parent="Player_Party/Player" index="7"]
+position = Vector2(41, 169)
+
+[node name="Tricky Icon" parent="Player_Party/Player" index="8"]
+position = Vector2(41, 175)
+
+[node name="Supportive Icon" parent="Player_Party/Player" index="9"]
+position = Vector2(41, 172)
+
+[node name="Buffed Icon" parent="Player_Party/Player" index="10"]
+position = Vector2(-16, 170)
+
+[node name="Proctected Icon" parent="Player_Party/Player" index="11"]
+position = Vector2(-8, 227)
+
+[node name="Commands" type="CanvasGroup" parent="."]
+
+[node name="Selection" type="VBoxContainer" parent="Commands"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1125.0
+offset_top = 254.0
+offset_right = 1348.0
+offset_bottom = 425.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ultimate" type="Button" parent="Commands/Selection"]
+visible = false
+layout_mode = 2
+text = "Ultimate"
+
+[node name="Attack" type="Button" parent="Commands/Selection"]
+layout_mode = 2
+text = "Attack
+"
+script = ExtResource("5_oj6en")
+
+[node name="Spell" type="Button" parent="Commands/Selection"]
+layout_mode = 2
+text = "Spell"
+
+[node name="Switch" type="Button" parent="Commands/Selection"]
+layout_mode = 2
+text = "Switch"
+
+[node name="Defend" type="Button" parent="Commands/Selection"]
+layout_mode = 2
+text = "Defend"
+
+[node name="Item" type="Button" parent="Commands/Selection"]
+layout_mode = 2
+text = "Item"
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -6.0
+offset_top = 2.0
+offset_right = 1368.0
+offset_bottom = 42.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_right = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "The battle begins!"
+
+[node name="Defensive Spells" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Defensive Spells"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1125.0
+offset_top = 254.0
+offset_right = 1345.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Defensive Spells/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Star Beam" type="Button" parent="Defensive Spells/Selection"]
+layout_mode = 2
+text = "Star Beam
+"
+script = ExtResource("6_fnf6f")
+
+[node name="Enhanced Star Beam" type="Button" parent="Defensive Spells/Selection"]
+layout_mode = 2
+text = "Star Beam +"
+
+[node name="Offensive Spells" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Offensive Spells"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1123.0
+offset_top = 256.0
+offset_right = 1351.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Offensive Spells/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Black Hole" type="Button" parent="Offensive Spells/Selection"]
+layout_mode = 2
+text = "Black Hole
+"
+script = ExtResource("7_rv17d")
+
+[node name="Enhanced Black Hole" type="Button" parent="Offensive Spells/Selection"]
+layout_mode = 2
+text = "Black Hole +"
+
+[node name="Tricky Spells" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Tricky Spells"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1127.0
+offset_top = 254.0
+offset_right = 1349.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Tricky Spells/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Shredder" type="Button" parent="Tricky Spells/Selection"]
+layout_mode = 2
+text = "Shredder
+"
+script = ExtResource("8_j5wi6")
+
+[node name="Enhanced Shredder" type="Button" parent="Tricky Spells/Selection"]
+layout_mode = 2
+text = " Shredder +"
+
+[node name="Supportive Spells" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Supportive Spells"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1123.0
+offset_top = 254.0
+offset_right = 1351.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Supportive Spells/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Burst" type="Button" parent="Supportive Spells/Selection"]
+layout_mode = 2
+text = "Burst
+"
+script = ExtResource("9_sgl5f")
+
+[node name="Enhanced Burst" type="Button" parent="Supportive Spells/Selection"]
+layout_mode = 2
+text = "Burst +"
+
+[node name="Defensive Switch" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Defensive Switch"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1125.0
+offset_top = 255.0
+offset_right = 1350.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Defensive Switch/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Offensive" type="Button" parent="Defensive Switch/Selection"]
+layout_mode = 2
+text = "Offensive
+"
+script = ExtResource("10_16pdm")
+
+[node name="Tricky" type="Button" parent="Defensive Switch/Selection"]
+layout_mode = 2
+text = "Tricky"
+
+[node name="Supportive" type="Button" parent="Defensive Switch/Selection"]
+layout_mode = 2
+text = "Supportive"
+
+[node name="Offensive Switch" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Offensive Switch"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1124.0
+offset_top = 256.0
+offset_right = 1347.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Offensive Switch/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Defensive" type="Button" parent="Offensive Switch/Selection"]
+layout_mode = 2
+text = "Defensive
+"
+script = ExtResource("11_kkmha")
+
+[node name="Tricky" type="Button" parent="Offensive Switch/Selection"]
+layout_mode = 2
+text = "Tricky"
+
+[node name="Supportive" type="Button" parent="Offensive Switch/Selection"]
+layout_mode = 2
+text = "Supportive"
+
+[node name="Tricky Switch" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Tricky Switch"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1125.0
+offset_top = 255.0
+offset_right = 1350.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Tricky Switch/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Defensive" type="Button" parent="Tricky Switch/Selection"]
+layout_mode = 2
+text = "Defensive
+"
+script = ExtResource("12_xusdi")
+
+[node name="Offensive" type="Button" parent="Tricky Switch/Selection"]
+layout_mode = 2
+text = "Offensive"
+
+[node name="Supportive" type="Button" parent="Tricky Switch/Selection"]
+layout_mode = 2
+text = "Supportive"
+
+[node name="Supportive Switch" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Supportive Switch"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1125.0
+offset_top = 255.0
+offset_right = 1347.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Supportive Switch/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Defensive" type="Button" parent="Supportive Switch/Selection"]
+layout_mode = 2
+text = "Defensive"
+script = ExtResource("13_vleex")
+
+[node name="Offensive" type="Button" parent="Supportive Switch/Selection"]
+layout_mode = 2
+text = "Offensive
+"
+
+[node name="Tricky" type="Button" parent="Supportive Switch/Selection"]
+layout_mode = 2
+text = "Tricky"
+
+[node name="Burst Switch" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Burst Switch"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1124.0
+offset_top = 253.0
+offset_right = 1350.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stay" type="Button" parent="Burst Switch/Selection"]
+layout_mode = 2
+text = "Stay"
+
+[node name="Defensive" type="Button" parent="Burst Switch/Selection"]
+layout_mode = 2
+text = "Defensive"
+script = ExtResource("14_pw38y")
+
+[node name="Offensive" type="Button" parent="Burst Switch/Selection"]
+layout_mode = 2
+text = "Offensive
+"
+
+[node name="Tricky" type="Button" parent="Burst Switch/Selection"]
+layout_mode = 2
+text = "Tricky"
+
+[node name="Items" type="CanvasGroup" parent="."]
+visible = false
+
+[node name="Selection" type="VBoxContainer" parent="Items"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1127.0
+offset_top = 253.0
+offset_right = 1350.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Items/Selection"]
+layout_mode = 2
+text = "Back"
+
+[node name="Elixir" type="Button" parent="Items/Selection"]
+layout_mode = 2
+text = "Elixir"
+script = ExtResource("15_dfs4p")
+
+[node name="Buff Spice" type="Button" parent="Items/Selection"]
+layout_mode = 2
+text = "Buff Spice
+"
+
+[node name="Debuff Dust" type="Button" parent="Items/Selection"]
+layout_mode = 2
+text = "Debuff Dust"
+
+[node name="Barrier Berries" type="Button" parent="Items/Selection"]
+layout_mode = 2
+text = "Barrier Berries"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+offset_left = -13.0
+offset_top = -43.0
+offset_right = 1369.0
+offset_bottom = 766.0
+texture = ExtResource("17_g00ox")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 45.0
+offset_right = 1374.0
+offset_bottom = 94.0
+text = "Tips:"
+label_settings = SubResource("LabelSettings_hitta")
+
+[node name="Label2" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 79.0
+offset_right = 1368.0
+offset_bottom = 128.0
+text = "Interaction:"
+label_settings = SubResource("LabelSettings_hitta")
+
+[node name="Label3" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 81.0
+offset_right = 1370.0
+offset_bottom = 130.0
+text = "Spells:"
+label_settings = SubResource("LabelSettings_hitta")
+
+[node name="Label4" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 591.0
+offset_top = 136.0
+offset_right = 1461.0
+offset_bottom = 195.0
+text = "Defensive: More Special Gain
+Enhance: Grants Protection"
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label5" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 590.0
+offset_top = 197.0
+offset_right = 1460.0
+offset_bottom = 254.0
+text = "Offensive: Big Damage
+Enhance: Buff self"
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label6" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 919.0
+offset_top = 125.0
+offset_right = 1789.0
+offset_bottom = 184.0
+text = "Tricky: Greater Enemy Stagger Depletion
+Enhance: Debuffs enemy"
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label7" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 928.0
+offset_top = 191.0
+offset_right = 1798.0
+offset_bottom = 250.0
+text = "Supportive: Able to switch playstyles after attack
+Enhance: Heal Self"
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label8" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 288.0
+offset_right = 1166.0
+offset_bottom = 375.0
+text = "Green arrows indicate a strong interaction. Strong interaction incurs more damage dealt and less damage taken.
+In addition, strong interaction for the player allows for more MP to be restored upon attack and damage to enemy's
+stagger. However, be advised that the enemy can have a strong interaction against the player leading to disadvantages for
+you. Finally, the Supportive has a neutral interaction meaning that it will have neither the benefits and draws of interactions."
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label9" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 410.0
+offset_right = 1370.0
+offset_bottom = 452.0
+text = "Status Effects:"
+label_settings = SubResource("LabelSettings_hitta")
+
+[node name="Label10" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 465.0
+offset_right = 934.0
+offset_bottom = 524.0
+text = "Buff: Increase Stats. Last 2 turns."
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label11" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 443.0
+offset_top = 463.0
+offset_right = 1313.0
+offset_bottom = 522.0
+text = "Debuff: Debuff Stats. Last 2 turns."
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label12" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 827.0
+offset_top = 457.0
+offset_right = 1697.0
+offset_bottom = 516.0
+text = "Staggered: Occurs when enemy's stagger reaches zero.
+                     Unable to act during turn. Last 1 turn."
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label13" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 529.0
+offset_right = 947.0
+offset_bottom = 588.0
+text = "Protection: Reduce damage of next attack. Stacks with defend. Last 1 turn."
+label_settings = SubResource("LabelSettings_aqufe")
+
+[node name="Label14" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 567.0
+offset_right = 1370.0
+offset_bottom = 609.0
+text = "Extra:"
+label_settings = SubResource("LabelSettings_hitta")
+
+[node name="Label15" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 598.0
+offset_right = 1176.0
+offset_bottom = 770.0
+text = "*Attacks are a good way to restore MP in a pinch.
+*Items provide additinal ways to heal yourself and grant status effects. 
+*Defend can be used both as a defensive tool and way to stale for possible enemy defend or switch.
+*Reducing enemy's stagger to zero also grants a substantial boost to the Special guage.
+*Use Enhanced Spells for more damage along with granting status effects and healing without the use of items.
+*The Ultimate command opens upon filling the Special to 100% allowing access to a powerful attack which fully restores MP.
+*If you want to quit the game, just press both the ctrl and Tab keys."
+label_settings = SubResource("LabelSettings_71qrm")
+
+[node name="Inter-Def" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(75, 264)
+texture = ExtResource("18_yk0df")
+
+[node name="Inter-Off" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(210, 256)
+scale = Vector2(0.972973, 0.858108)
+texture = ExtResource("19_0njym")
+
+[node name="Inter-Trick" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(136, 157.5)
+scale = Vector2(0.945946, 0.905405)
+texture = ExtResource("20_da8i6")
+
+[node name="Inter-Support" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(297, 213)
+texture = ExtResource("21_xvuyr")
+
+[node name="Arrow1" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(93, 203)
+rotation = -2.61799
+texture = ExtResource("22_d4x7i")
+
+[node name="Arrow2" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(173, 204)
+rotation = 5.58505
+texture = ExtResource("22_d4x7i")
+
+[node name="Arrow3" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(140, 259)
+rotation = -4.71239
+texture = ExtResource("22_d4x7i")
+
+[node name="Inter-Def2" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(558, 167)
+texture = ExtResource("18_yk0df")
+
+[node name="Inter-Off2" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(557, 232)
+scale = Vector2(0.972973, 0.858108)
+texture = ExtResource("19_0njym")
+
+[node name="Inter-Trick2" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(888, 158)
+scale = Vector2(0.945946, 0.905405)
+texture = ExtResource("20_da8i6")
+
+[node name="Inter-Support2" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(890, 224)
+texture = ExtResource("21_xvuyr")
+
+[node name="Buff" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(44, 486)
+scale = Vector2(0.881818, 0.954545)
+texture = ExtResource("22_d4x7i")
+
+[node name="Debuff" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(413, 484)
+scale = Vector2(0.881818, 0.954545)
+texture = ExtResource("23_h0lqe")
+
+[node name="Staggered" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(796, 479)
+scale = Vector2(0.881818, 0.954545)
+texture = ExtResource("24_81ye0")
+
+[node name="Protection" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(55, 543)
+scale = Vector2(0.881818, 0.954545)
+texture = ExtResource("25_x5flm")
+
+[node name="P_Attack_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 15
+one_shot = true
+speed_scale = 3.0
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_eieqq")
+script = ExtResource("26_ooskh")
+
+[node name="E_Attack_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(931, 424)
+emitting = false
+amount = 15
+one_shot = true
+speed_scale = 3.0
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_63huk")
+script = ExtResource("27_82c5a")
+
+[node name="P_Star_Beam_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 180.0
+gravity = Vector2(250, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0, 1, 1, 1)
+script = ExtResource("26_ooskh")
+
+[node name="E_Star_Beam_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(934, 421)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 180.0
+gravity = Vector2(-250, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0, 1, 1, 1)
+script = ExtResource("27_82c5a")
+
+[node name="P_Enhance_Star_Beam_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 180.0
+gravity = Vector2(250, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_min = 25.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0, 1, 1, 1)
+script = ExtResource("26_ooskh")
+
+[node name="P_Black_Hole_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+orbit_velocity_min = 550.0
+orbit_velocity_max = 700.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.249966, 0.000563828, 0.401544, 1)
+script = ExtResource("26_ooskh")
+
+[node name="E_Black_Hole_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(932, 428)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+orbit_velocity_min = 550.0
+orbit_velocity_max = 700.0
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.249966, 0.000563828, 0.401544, 1)
+script = ExtResource("27_82c5a")
+
+[node name="P_Enhance_Black_Hole_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+orbit_velocity_min = 550.0
+orbit_velocity_max = 700.0
+scale_amount_min = 25.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.249966, 0.000563828, 0.401544, 1)
+script = ExtResource("26_ooskh")
+
+[node name="P_Shred_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 0.0
+gravity = Vector2(200, 0)
+angle_min = 90.0
+angle_max = 90.0
+angle_curve = SubResource("Curve_nxxf5")
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.25098, 0.964706, 0.4, 1)
+script = ExtResource("26_ooskh")
+
+[node name="E_Shred_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(935, 426)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 0.0
+gravity = Vector2(-200, 0)
+angle_min = 90.0
+angle_max = 90.0
+angle_curve = SubResource("Curve_nxxf5")
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.25098, 0.964706, 0.4, 1)
+script = ExtResource("27_82c5a")
+
+[node name="P_Enhance_Shred_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+spread = 0.0
+gravity = Vector2(200, 0)
+angle_min = 90.0
+angle_max = 90.0
+angle_curve = SubResource("Curve_nxxf5")
+scale_amount_min = 50.0
+scale_amount_max = 50.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.25098, 0.964706, 0.4, 1)
+script = ExtResource("26_ooskh")
+
+[node name="P_Burst_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(50, 50)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -600)
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.909804, 0.0705882, 0.172549, 1)
+script = ExtResource("26_ooskh")
+
+[node name="E_Burst_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(934, 429)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(50, 50)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -600)
+scale_amount_min = 15.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.909804, 0.0705882, 0.172549, 1)
+script = ExtResource("27_82c5a")
+
+[node name="P_Enhance_Burst_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 5.0
+emission_shape = 3
+emission_rect_extents = Vector2(50, 50)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -600)
+scale_amount_min = 22.0
+scale_amount_max = 22.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(0.909804, 0.0705882, 0.172549, 1)
+script = ExtResource("26_ooskh")
+
+[node name="P_Ult_Effect" type="CPUParticles2D" parent="."]
+position = Vector2(277, 418)
+emitting = false
+amount = 30
+one_shot = true
+speed_scale = 3.0
+emission_shape = 2
+emission_sphere_radius = 128.0
+direction = Vector2(1000, 1000)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 50.0
+scale_amount_max = 50.0
+scale_amount_curve = SubResource("Curve_eieqq")
+color = Color(1, 1, 0, 1)
+script = ExtResource("26_ooskh")
+
+[connection signal="def_spell_menu" from="." to="Defensive Spells/Selection/Star Beam" method="_on_battle_1_def_spell_menu"]
+[connection signal="def_switch_menu" from="." to="Defensive Switch/Selection/Offensive" method="_on_battle_1_def_switch_menu"]
+[connection signal="item_menu" from="." to="Items/Selection/Elixir" method="_on_battle_1_item_menu"]
+[connection signal="normal_menu" from="." to="Commands/Selection/Attack" method="_on_battle_1_normal_menu"]
+[connection signal="off_spell_menu" from="." to="Offensive Spells/Selection/Black Hole" method="_on_battle_1_off_spell_menu"]
+[connection signal="off_switch_menu" from="." to="Offensive Switch/Selection/Defensive" method="_on_battle_1_off_switch_menu"]
+[connection signal="select_BB" from="." to="Player_Party/Player" method="_on_battle_1_select_bb"]
+[connection signal="select_BS" from="." to="Player_Party/Player" method="_on_battle_1_select_bs"]
+[connection signal="select_DD" from="." to="Player_Party/Player" method="_on_battle_1_select_dd"]
+[connection signal="select_attack" from="." to="Player_Party/Player" method="_on_battle_1_select_attack"]
+[connection signal="select_def_spell" from="." to="Player_Party/Player" method="_on_battle_1_select_def_spell"]
+[connection signal="select_defend" from="." to="Player_Party/Player" method="_on_battle_1_select_defend"]
+[connection signal="select_elixir" from="." to="Player_Party/Player" method="_on_battle_1_select_elixir"]
+[connection signal="select_enhanced_def" from="." to="Player_Party/Player" method="_on_battle_1_select_enhanced_def"]
+[connection signal="select_enhanced_off" from="." to="Player_Party/Player" method="_on_battle_1_select_enhanced_off"]
+[connection signal="select_enhanced_support" from="." to="Player_Party/Player" method="_on_battle_1_select_enhanced_support"]
+[connection signal="select_enhanced_trick" from="." to="Player_Party/Player" method="_on_battle_1_select_enhanced_trick"]
+[connection signal="select_off_spell" from="." to="Player_Party/Player" method="_on_battle_1_select_off_spell"]
+[connection signal="select_support_spell" from="." to="Player_Party/Player" method="_on_battle_1_select_support_spell"]
+[connection signal="select_trick_spell" from="." to="Player_Party/Player" method="_on_battle_1_select_trick_spell"]
+[connection signal="select_ult" from="." to="Player_Party/Player" method="_on_battle_1_select_ult"]
+[connection signal="support_spell_menu" from="." to="Supportive Spells/Selection/Burst" method="_on_battle_1_support_spell_menu"]
+[connection signal="support_switch_menu" from="." to="Supportive Switch/Selection/Defensive" method="_on_battle_1_support_switch_menu"]
+[connection signal="switch_burst" from="." to="Burst Switch/Selection/Defensive" method="_on_battle_1_switch_burst"]
+[connection signal="switch_to_def" from="." to="Player_Party/Player" method="_on_battle_1_switch_to_def"]
+[connection signal="switch_to_off" from="." to="Player_Party/Player" method="_on_battle_1_switch_to_off"]
+[connection signal="switch_to_support" from="." to="Player_Party/Player" method="_on_battle_1_switch_to_support"]
+[connection signal="switch_to_trick" from="." to="Player_Party/Player" method="_on_battle_1_switch_to_trick"]
+[connection signal="trick_spell_menu" from="." to="Tricky Spells/Selection/Shredder" method="_on_battle_1_trick_spell_menu"]
+[connection signal="trick_switch_menu" from="." to="Tricky Switch/Selection/Defensive" method="_on_battle_1_trick_switch_menu"]
+[connection signal="e_attack_anim" from="E_Group 1/Enemy" to="E_Attack_Effect" method="_on_enemy_e_attack_anim"]
+[connection signal="e_black_hole_anim" from="E_Group 1/Enemy" to="E_Black_Hole_Effect" method="_on_enemy_e_black_hole_anim"]
+[connection signal="e_burst_anim" from="E_Group 1/Enemy" to="E_Burst_Effect" method="_on_enemy_e_burst_anim"]
+[connection signal="e_shred_anim" from="E_Group 1/Enemy" to="E_Shred_Effect" method="_on_enemy_e_shred_anim"]
+[connection signal="e_star_beam_anim" from="E_Group 1/Enemy" to="E_Star_Beam_Effect" method="_on_enemy_e_star_beam_anim"]
+[connection signal="enemy_dealt_damage" from="E_Group 1/Enemy" to="Player_Party/Player" method="_on_enemy_enemy_dealt_damage"]
+[connection signal="enemy_stagger" from="E_Group 1/Enemy" to="Player_Party/Player" method="_on_enemy_enemy_stagger"]
+[connection signal="enemy_turn" from="E_Group 1/Enemy" to="." method="_on_enemy_enemy_turn"]
+[connection signal="send_e_style" from="E_Group 1/Enemy" to="Player_Party/Player" method="_on_enemy_send_e_style"]
+[connection signal="won" from="E_Group 1/Enemy" to="." method="_on_enemy_won"]
+[connection signal="MP_Depletion" from="Player_Party/Player" to="." method="_on_player_mp_depletion"]
+[connection signal="MP_Restore" from="Player_Party/Player" to="." method="_on_player_mp_restore"]
+[connection signal="Special_Depletion" from="Player_Party/Player" to="." method="_on_player_special_depletion"]
+[connection signal="Special_Gain" from="Player_Party/Player" to="." method="_on_player_special_gain"]
+[connection signal="dealt_damage" from="Player_Party/Player" to="E_Group 1/Enemy" method="_on_player_dealt_damage"]
+[connection signal="debuffed_enemy" from="Player_Party/Player" to="E_Group 1/Enemy" method="_on_player_debuffed_enemy"]
+[connection signal="defeated" from="Player_Party/Player" to="." method="_on_player_defeated"]
+[connection signal="p_attack_anim" from="Player_Party/Player" to="P_Attack_Effect" method="_on_player_p_attack_anim"]
+[connection signal="p_black_hole_anim" from="Player_Party/Player" to="P_Black_Hole_Effect" method="_on_player_p_black_hole_anim"]
+[connection signal="p_burst_anim" from="Player_Party/Player" to="P_Burst_Effect" method="_on_player_p_burst_anim"]
+[connection signal="p_enhance_black_hole_anim" from="Player_Party/Player" to="P_Enhance_Black_Hole_Effect" method="_on_player_p_enhance_black_hole_anim"]
+[connection signal="p_enhance_burst_anim" from="Player_Party/Player" to="P_Enhance_Burst_Effect" method="_on_player_p_enhance_burst_anim"]
+[connection signal="p_enhance_shred_anim" from="Player_Party/Player" to="P_Enhance_Shred_Effect" method="_on_player_p_enhance_shred_anim"]
+[connection signal="p_enhance_star_beam_anim" from="Player_Party/Player" to="P_Enhance_Star_Beam_Effect" method="_on_player_p_enhance_star_beam_anim"]
+[connection signal="p_shred_anim" from="Player_Party/Player" to="P_Shred_Effect" method="_on_player_p_shred_anim"]
+[connection signal="p_star_beam_anim" from="Player_Party/Player" to="P_Star_Beam_Effect" method="_on_player_p_star_beam_anim"]
+[connection signal="trigger_e_turn" from="Player_Party/Player" to="E_Group 1/Enemy" method="_on_player_trigger_e_turn"]
+[connection signal="ult_anim" from="Player_Party/Player" to="P_Ult_Effect" method="_on_player_ult_anim"]
+[connection signal="usable_ult" from="Player_Party/Player" to="." method="_on_player_usable_ult"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="E_Group 1"]
+[editable path="E_Group 1/Enemy"]
+[editable path="Player_Party"]

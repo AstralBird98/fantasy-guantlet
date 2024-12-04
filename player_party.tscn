@@ -1,0 +1,185 @@
+[gd_scene load_steps=19 format=3 uid="uid://rmdvquvp5v0b"]
+
+[ext_resource type="Script" path="res://player_party.gd" id="1_j30wl"]
+[ext_resource type="Texture2D" uid="uid://b82vwth0ds4ow" path="res://Icons/Icon_Class_Blue_Tome.webp" id="2_ekynl"]
+[ext_resource type="Script" path="res://player.gd" id="2_hy620"]
+[ext_resource type="Texture2D" uid="uid://blrjqyam6h0pw" path="res://Icons/Icon_Class_Red_Breath.webp" id="3_4i0u4"]
+[ext_resource type="Texture2D" uid="uid://xoa0cwqmgxo8" path="res://Icons/Icon_Class_Green_Dagger.webp" id="4_4l106"]
+[ext_resource type="Texture2D" uid="uid://igvdc0f5euc4" path="res://Icons/Icon_Class_Colorless_Staff.webp" id="5_q55nx"]
+[ext_resource type="Texture2D" uid="uid://bwktj87701k7u" path="res://Icons/Status_Effect_Bonus.webp" id="7_g45aj"]
+[ext_resource type="Texture2D" uid="uid://w3qsoxrulst3" path="res://Icons/Status_Effect_Reduces_damage_when_initiating.webp" id="8_gb6s3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hq6wd"]
+load_path = "res://.godot/imported/Terra_Branford_small.webp-d0b1b7299e3078919d246bcc02dd0104.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0ata"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc5bo"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6vnb"]
+bg_color = Color(1, 0, 0.760784, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8gaw"]
+bg_color = Color(0.52549, 0, 0.917647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmnq2"]
+bg_color = Color(0.0941176, 0, 0.996078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s00ok"]
+bg_color = Color(1, 0.992157, 0, 1)
+
+[sub_resource type="Animation" id="Animation_2gb31"]
+resource_name = "Hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(30, 1, 1, 1), Color(30, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0i534"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_depxi"]
+_data = {
+"Hurt": SubResource("Animation_2gb31"),
+"RESET": SubResource("Animation_0i534")
+}
+
+[node name="Player_Party" type="Node2D"]
+script = ExtResource("1_j30wl")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("2_hy620")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(101, 214)
+scale = Vector2(3.25208, 3.18999)
+texture = SubResource("CompressedTexture2D_hq6wd")
+
+[node name="Focus" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-12, 266)
+scale = Vector2(1.09375, 1.1875)
+
+[node name="HP" type="ProgressBar" parent="Player"]
+offset_left = 12.0
+offset_top = 53.0
+offset_right = 180.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_o0ata")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cc5bo")
+value = 100.0
+fill_mode = 1
+
+[node name="Label" type="Label" parent="Player/HP"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -7.0
+offset_right = 43.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HP:"
+vertical_alignment = 1
+
+[node name="MP" type="ProgressBar" parent="Player"]
+offset_left = 12.0
+offset_top = 100.0
+offset_right = 180.0
+offset_bottom = 127.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_w6vnb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c8gaw")
+value = 100.0
+rounded = true
+fill_mode = 1
+
+[node name="Label" type="Label" parent="Player/MP"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -7.0
+offset_right = 43.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "MP:"
+vertical_alignment = 1
+
+[node name="Special" type="ProgressBar" parent="Player"]
+offset_left = -712.0
+offset_top = 400.0
+offset_right = 358.0
+offset_bottom = 427.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_cmnq2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_s00ok")
+fill_mode = 1
+
+[node name="Label" type="Label" parent="Player/Special"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -7.0
+offset_right = 62.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Special:"
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_depxi")
+}
+
+[node name="Defensive Icon" type="Sprite2D" parent="Player"]
+position = Vector2(-38, 75.25)
+scale = Vector2(1, 0.993243)
+texture = ExtResource("2_ekynl")
+
+[node name="Offensive  Icon" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-31, 74)
+scale = Vector2(0.810811, 0.72973)
+texture = ExtResource("3_4i0u4")
+
+[node name="Tricky Icon" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-37, 75)
+scale = Vector2(0.864865, 0.756757)
+texture = ExtResource("4_4l106")
+
+[node name="Supportive Icon" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-40, 72)
+scale = Vector2(0.837838, 0.837838)
+texture = ExtResource("5_q55nx")
+
+[node name="Buffed Icon" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-98, 73)
+scale = Vector2(1, 0.990909)
+texture = ExtResource("7_g45aj")
+
+[node name="Proctected Icon" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-91, 128)
+texture = ExtResource("8_gb6s3")
