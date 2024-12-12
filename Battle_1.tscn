@@ -527,7 +527,7 @@ layout_mode = 2
 text = "Barrier Berries"
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 0.25
 one_shot = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]

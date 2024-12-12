@@ -150,7 +150,7 @@ func _process(_delta):
 		get_tree().quit()
 	if(curr_state == State.WIN):
 		if(count == 4):
-			display_text("You've beaten the Game! Thank you for playing! Press Tab to quit.")
+			display_text("You've beaten the game! Thank you for playing! Press Tab to quit.")
 			if(Input.is_action_pressed("ui_focus_next")):
 				get_tree().quit()
 		else:
@@ -568,19 +568,19 @@ func _process(_delta):
 			sup_spell.hide()
 			burst = true
 			spell_select = false
-			curr_index = 1
-			curr_size = 4
 			select_support_spell.emit()
 			switch_burst.emit()
+			curr_index = 1
+			curr_size = 4
 		elif (Input.is_action_just_pressed("ui_accept") && curr_index == 2 && spell_select && isSup && MP_Check >= 20 && Special_Check >= 25):
 			burst_switch.show()
 			sup_spell.hide()
 			burst = true
 			spell_select = false
-			curr_index = 1
-			curr_size = 4
 			select_enhanced_support.emit()
 			switch_burst.emit()
+			curr_index = 1
+			curr_size = 4
 		elif (Input.is_action_just_pressed("ui_accept") && curr_index == 1 && item_select && in_stock_e):
 			norm.show()
 			item.hide()
@@ -759,7 +759,7 @@ func _process(_delta):
 			var actual_bs = before_bs.format({"stock": str(BS_Stock)})
 			var before_dd = "Debuff enemies' stats. Uses: {stock}"
 			var actual_dd = before_dd.format({"stock": str(DD_Stock)})
-			var before_bb = "Reduce oncoming attacks by half. Lasts 2 turns. Uses: {stock}"
+			var before_bb = "Reduce oncoming attacks by half. Uses: {stock}"
 			var actual_bb = before_bb.format({"stock": str(BB_Stock)})
 			if(curr_index == 0 && Input.is_anything_pressed()):
 				display_text("Return to command menu")

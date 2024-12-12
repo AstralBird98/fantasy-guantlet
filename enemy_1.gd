@@ -304,63 +304,64 @@ func stag_check():
 
 func _on_player_trigger_e_turn():
 	stag_check()
-	if(lost_HP && enraged_check):
-		enraged_check = false
-		enemy_turn.emit("Enraged")
-	elif(!isStaggered):
-		var rng = randi() % 100
-		if(battle_count == 1):
-			if(rng > 75 && rng <= 100):
-				enemy_attack()
-				enemy_turn.emit("Attack")
-			elif(rng > 50 && rng <= 75):
-				enemy_spell()
-				enemy_turn.emit("Spell")
-			elif(rng > 25 && rng <= 50):
-				enemy_switch()
-				enemy_turn.emit("Switch")
-			else:
-				enemy_defend()
-				enemy_turn.emit("Defend")
-		elif(battle_count == 2):
-			if(rng > 90 && rng <= 100):
-				enemy_attack()
-				enemy_turn.emit("Attack")
-			elif(rng > 45 && rng <= 90):
-				enemy_spell()
-				enemy_turn.emit("Spell")
-			elif(rng > 15 && rng <= 45):
-				enemy_switch()
-				enemy_turn.emit("Switch")
-			else:
-				enemy_defend()
-				enemy_turn.emit("Defend")
-		elif(battle_count == 3):
-			if(rng > 85 && rng <= 100):
-				enemy_attack()
-				enemy_turn.emit("Attack")
-			elif(rng > 50 && rng <= 85):
-				enemy_spell()
-				enemy_turn.emit("Spell")
-			elif(rng > 20 && rng <= 50):
-				enemy_switch()
-				enemy_turn.emit("Switch")
-			else:
-				enemy_defend()
-				enemy_turn.emit("Defend")
-		elif(battle_count == 4):
-			if(rng > 80 && rng <= 100):
-				enemy_attack()
-				enemy_turn.emit("Attack")
-			elif(rng > 35 && rng <= 80):
-				enemy_spell()
-				enemy_turn.emit("Spell")
-			elif(rng > 10 && rng <= 35):
-				enemy_switch()
-				enemy_turn.emit("Switch")
-			else:
-				enemy_defend()
-				enemy_turn.emit("Defend")
-	else:
-		s_counter -= 1
-		enemy_turn.emit("Stagger")
+	if(!is_KOed):
+		if(lost_HP && enraged_check):
+			enraged_check = false
+			enemy_turn.emit("Enraged")
+		elif(!isStaggered):
+			var rng = randi() % 100
+			if(battle_count == 1):
+				if(rng > 75 && rng <= 100):
+					enemy_attack()
+					enemy_turn.emit("Attack")
+				elif(rng > 50 && rng <= 75):
+					enemy_spell()
+					enemy_turn.emit("Spell")
+				elif(rng > 25 && rng <= 50):
+					enemy_switch()
+					enemy_turn.emit("Switch")
+				else:
+					enemy_defend()
+					enemy_turn.emit("Defend")
+			elif(battle_count == 2):
+				if(rng > 90 && rng <= 100):
+					enemy_attack()
+					enemy_turn.emit("Attack")
+				elif(rng > 45 && rng <= 90):
+					enemy_spell()
+					enemy_turn.emit("Spell")
+				elif(rng > 15 && rng <= 45):
+					enemy_switch()
+					enemy_turn.emit("Switch")
+				else:
+					enemy_defend()
+					enemy_turn.emit("Defend")
+			elif(battle_count == 3):
+				if(rng > 85 && rng <= 100):
+					enemy_attack()
+					enemy_turn.emit("Attack")
+				elif(rng > 50 && rng <= 85):
+					enemy_spell()
+					enemy_turn.emit("Spell")
+				elif(rng > 20 && rng <= 50):
+					enemy_switch()
+					enemy_turn.emit("Switch")
+				else:
+					enemy_defend()
+					enemy_turn.emit("Defend")
+			elif(battle_count == 4):
+				if(rng > 80 && rng <= 100):
+					enemy_attack()
+					enemy_turn.emit("Attack")
+				elif(rng > 35 && rng <= 80):
+					enemy_spell()
+					enemy_turn.emit("Spell")
+				elif(rng > 10 && rng <= 35):
+					enemy_switch()
+					enemy_turn.emit("Switch")
+				else:
+					enemy_defend()
+					enemy_turn.emit("Defend")
+		else:
+			s_counter -= 1
+			enemy_turn.emit("Stagger")
